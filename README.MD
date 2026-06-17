@@ -9,6 +9,7 @@ A Node.js toolset designed to manipulate Git objects and temporally spoof commit
 **This repository is strictly for educational purposes.** It demonstrates vulnerability in relying on unverified temporal data and visual graph metrics. Do not use this tool to deceive employers, falsify professional history, or manipulate hiring algorithms.
 
 **Credits:** Original concept by [Fenrir on YouTube](https://www.youtube.com/@Fenrir26) / [Original - goGreen Repository](https://github.com/fenrir2608/goGreen).
+
 ---
 ### 🗺️ Feature Roadmap
 **Currently Implemented:**
@@ -23,28 +24,21 @@ A Node.js toolset designed to manipulate Git objects and temporally spoof commit
 
 ---
 ### 🛠️ Setup Instructions
-
 **1. Initialize the Node environment and enable ES6 modules:**
 ```bash
 npm init -y
 npm pkg set type="module"
 ```
-
 **2. Install core dependencies:**
-
 ```bash
 npm install jsonfile moment simple-git random
 ```
-
 **3. Bind your GitHub Identity:**
 Ensure your local repository directory is configured to use the primary email explicitly tied to your GitHub account. Without this, the remote server will reject the graph mapping.
-
 ```bash
 git config user.email "your-github-email@example.com"
 ```
-
 ---
-
 ### 📦 Internal Architecture & Dependencies
 * **`jsonfile`**: Forces a persistent file diff (tree change) by overwriting a local dummy file, satisfying Git's strict requirement to instantiate a new commit object.
 * **`moment`**: Calculates the precise historical ISO 8601 timestamps required to target specific X/Y graph coordinates.
@@ -52,7 +46,6 @@ git config user.email "your-github-email@example.com"
 * **`random`**: Synthesizes X/Y coordinates for stochastic (random) graph distribution.
 
 ---
-
 ### ⚙️ Engine Configuration (`index.js`)
 You control the engine's behavior by modifying the global constants at the top of `index.js`.
 **Execution Modes:**
