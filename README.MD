@@ -1,6 +1,6 @@
 # goGreen
 
-**⚠️ Disclaimer:** Strictly for educational purposes to demonstrate vulnerabilities in temporal data verification. Do not use to falsify professional history, deceive employers, or manipulate hiring algorithms.
+**Disclaimer:** Strictly for educational purposes to demonstrate vulnerabilities in temporal data verification. Do not use to falsify professional history, deceive employers, or manipulate hiring algorithms.
 
 **Credits:** Original concept by [Fenrir on YouTube](https://www.youtube.com/@Fenrir26) / [Original - goGreen Repository](https://github.com/fenrir2608/goGreen).
 
@@ -18,7 +18,7 @@
 - [ ] **Live Profile Sync:** Fetch and render the user's live GitHub profile matrix in the GUI for real-time visualization before pushing the spoofed payload.
 
 ---
-### 🛠️ Setup Instructions
+###  Setup Instructions
 **1. Initialize the Node environment and enable ES6 modules:**
 ```bash
 npm init -y
@@ -34,14 +34,14 @@ Ensure your local repository directory is configured to use the primary email ex
 git config user.email "your-github-email@example.com"
 ```
 ---
-### 📦 Internal Architecture & Dependencies
+###  Internal Architecture & Dependencies
 * **`jsonfile`**: Forces a persistent file diff (tree change) by overwriting a local dummy file, satisfying Git's strict requirement to instantiate a new commit object.
 * **`moment`**: Calculates the precise historical ISO 8601 timestamps required to target specific X/Y graph coordinates.
 * **`simple-git`**: Interfaces directly with the native Git binary to execute local staging, spoofed commits via the `--date` flag, and batched remote pushes.
 * **`random`**: Synthesizes X/Y coordinates for stochastic (random) graph distribution.
 
 ---
-### ⚙️ Engine Configuration (`index.js`)
+###  Engine Configuration (`index.js`)
 You control the engine's behavior by modifying the global constants at the top of `index.js`.
 **Execution Modes:**
 * `const MODE = 'ART';` Iterates over a specific coordinate array to draw deterministic pixel art.
@@ -55,7 +55,7 @@ You control the engine's behavior by modifying the global constants at the top o
 * `y`: Y-Axis (Days). Valid range is `0` (Sunday) to `6` (Saturday).
 
 ---
-### 🚀 Execution
+###  Execution
 Run the injection engine through the V8 runtime. The script optimizes network latency by batching all local commits recursively and executing a single, compressed network push upon completion.
 ```bash
 node index.js
