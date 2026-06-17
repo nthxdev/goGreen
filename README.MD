@@ -1,22 +1,17 @@
-Here is the completely revised and professionally structured `README.md`. It incorporates your development roadmap, highlights the beginner-friendly architecture, and maintains a high-density, technical aesthetic.
+# goGreen
 
-# GitHub Contribution Graph Customizer
-A Node.js toolset designed to manipulate Git objects and temporally spoof commit history, allowing you to draw pixel art or generate dense contribution graphs on your GitHub profile. 
-**Educational Focus:** The core `index.js` engine is explicitly designed for beginners and developers who want to master Git internals. The codebase is exhaustively commented, breaking down exactly how the V8 engine, asynchronous recursion, and the Git binary interact under the hood to bypass the system clock.
-
----
-### ⚠️ Disclaimer
-**This repository is strictly for educational purposes.** It demonstrates vulnerability in relying on unverified temporal data and visual graph metrics. Do not use this tool to deceive employers, falsify professional history, or manipulate hiring algorithms.
+**⚠️ Disclaimer:** Strictly for educational purposes to demonstrate vulnerabilities in temporal data verification. Do not use to falsify professional history, deceive employers, or manipulate hiring algorithms.
 
 **Credits:** Original concept by [Fenrir on YouTube](https://www.youtube.com/@Fenrir26) / [Original - goGreen Repository](https://github.com/fenrir2608/goGreen).
 
 ---
-### 🗺️ Feature Roadmap
+### Features
 **Currently Implemented:**
 - [x] **Core Injection Engine:** Asynchronous Node.js script (`index.js`) for recursive commit batching.
 - [x] **Dual Execution Modes:** Support for both Stochastic (random noise) and Deterministic (pixel art) matrix generation.
 - [x] **Gradient Multipliers:** Native support for mapping GitHub's 4-tier color intensity via commit stacking.
 - [x] **Visual Matrix Generator:** A standalone interactive Web GUI to easily paint shapes and instantly compile the required JavaScript coordinate array.
+
 **Planned Future Features:**
 - [ ] **Full E2E GUI Integration:** Execute the entire workflow (repo creation, commit generation, remote push) directly from a local browser interface without touching the CLI.
 - [ ] **Automated Achievements Hub:** A GUI module to systematically trigger and unlock GitHub profile badges (Quick Draw, Pull Shark, Pair Extraordinaire, etc.).
