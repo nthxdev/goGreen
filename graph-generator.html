@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Graph Gradient Art Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: #0d1117; color: #c9d1d9; display: flex;
+            flex-direction: column; align-items: center; padding: 40px 20px; margin: 0;
+        }
+        h1 { margin-bottom: 10px; }
+        p { color: #8b949e; margin-bottom: 20px; }
+
+        /* Palette Controls */
+        .palette {
+            display: flex; gap: 10px; margin-bottom: 20px; background: #161b22; 
+            padding: 10px 15px; border-radius: 6px; border: 1px solid #30363d;
+        }
+        .brush-btn {
+            width: 24px; height: 24px; border-radius: 4px; cursor: pointer;
+            border: 2px solid transparent; transition: transform 0.1s;
+        }
+        .brush-btn:hover { transform: scale(1.1); }
+        .brush-btn.selected { border-color: #c9d1d9; box-shadow: 0 0 8px rgba(255,255,255,0.3); }
+
+        .graph-container {
+            display: flex; gap: 15px; background: #161b22;
+            border: 1px solid #30363d; border-radius: 6px; padding: 20px;
+        }
+        .days-axis {
+            display: flex; flex-direction: column; justify-content: space-between;
+            padding-top: 15px; font-size: 12px; color: #8b949e;
+        }
+        .grid {
+            display: grid; grid-template-columns: repeat(53, 14px);
+            grid-template-rows: repeat(7, 14px); gap: 4px; user-select: none;
+        }
+        
+        /* Cell Mechanics & Scalar Intensity Colors */
+        .cell {
+            width: 14px; height: 14px; background-color: #161b22;
+            border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 3px; cursor: pointer;
+        }
+        .cell[data-level="1"] { background-color: #0e4429; }
+        .cell[data-level="2"] { background-color: #006d32; }
+        .cell[data-level="3"] { background-color: #26a641; }
+        .cell[data-level="4"] { background-color: #39d353; box-shadow: 0 0 5px rgba(57, 211, 83, 0.4); }
+
+        .controls { margin-top: 20px; display: flex; gap: 10px; width: 100%; max-width: 950px; }
+        button { background-color: #238636; color: #ffffff; border: 1px solid rgba(240, 246, 252, 0.1); border-radius: 6px; padding: 8px 16px; cursor: pointer; }
+        button.danger { background-color: #21262d; border-color: #30363d; }
+        .output-container { margin-top: 20px; width: 100%; max-width: 950px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px; }
+        pre { margin: 0; font-family: monospace; font-size: 13px; color: #e6edf3; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <h1>Gradient Matrix Generator</h1>
+    <p>Select a brush intensity. Click and drag to paint gradients.</p>
+
+    <div class="palette" id="palette">
+        <div class="brush-btn selected" style="background-color: #39d353;" data-brush="4"></div>
+        <div class="brush-btn" style="background-color: #26a641;" data-brush="3"></div>
+        <div class="brush-btn" style="background-color: #006d32;" data-brush="2"></div>
+        <div class="brush-btn" style="background-color: #0e4429;" data-brush="1"></div>
+        <div class="brush-btn" style="background-color: #161b22; border: 1px solid #30363d;" data-brush="0" title="Eraser"></div>
+    </div>
+
+    <div class="graph-container">
+        <div class="days-axis">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <div class="grid" id="grid"></div>
+    </div>
+
+    <div class="controls">
+        <button id="copyBtn">Copy Array</button>
+        <button id="clearBtn" class="danger">Clear Canvas</button>
+    </div>
+
+    <div class="output-container">
+        <pre id="output">const ART_SHAPE = [];</pre>
+    </div>
+
+    <script>
+        const WEEKS_X = 53, DAYS_Y = 7;
+        const grid = document.getElementById('grid');
+        const output = document.getElementById('output');
+        let currentBrush = '4';
+        let isDrawing = false;
+
+        // Palette Setup
+        document.querySelectorAll('.brush-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.brush-btn').forEach(b => b.classList.remove('selected'));
+                e.target.classList.add('selected');
+                currentBrush = e.target.dataset.brush;
+            });
+        });
+
+        // Grid Initialization
+        for (let y = 0; y < DAYS_Y; y++) {
+            for (let x = 0; x < WEEKS_X; x++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.x = x; cell.dataset.y = y;
+                cell.addEventListener('mousedown', (e) => { isDrawing = true; applyBrush(e.target); });
+                cell.addEventListener('mouseenter', (e) => { if(isDrawing) applyBrush(e.target); });
+                grid.appendChild(cell);
+            }
+        }
+        window.addEventListener('mouseup', () => isDrawing = false);
+        window.addEventListener('mouseleave', () => isDrawing = false);
+
+        function applyBrush(cell) {
+            if (currentBrush === '0') {
+                cell.removeAttribute('data-level');
+            } else {
+                cell.dataset.level = currentBrush;
+            }
+            compileArray();
+        }
+
+        // JS Array Compiler
+        function compileArray() {
+            const cells = document.querySelectorAll('.cell[data-level]');
+            const coords = [];
+            cells.forEach(c => {
+                coords.push(`{x: ${c.dataset.x}, y: ${c.dataset.y}, level: ${c.dataset.level}}`);
+            });
+
+            let str = `const ART_SHAPE = [\n    `;
+            for (let i = 0; i < coords.length; i++) {
+                str += coords[i];
+                if (i !== coords.length - 1) str += `, `;
+                if ((i + 1) % 4 === 0 && i !== coords.length - 1) str += `\n    `;
+            }
+            output.textContent = str + `\n];`;
+        }
+
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            document.querySelectorAll('.cell').forEach(c => c.removeAttribute('data-level'));
+            compileArray();
+        });
+
+        document.getElementById('copyBtn').addEventListener('click', async () => {
+            await navigator.clipboard.writeText(output.textContent);
+        });
+    </script>
+</body>
+</html>
