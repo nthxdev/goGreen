@@ -15,7 +15,7 @@
 **Planned Future Features:**
 - [ ] **Full E2E GUI Integration:** Execute the entire workflow (repo creation, commit generation, remote push) directly from a local browser interface without touching the CLI.
 - [ ] **Automated Achievements Hub:** A GUI module to systematically trigger and unlock GitHub profile badges (Quick Draw, Pull Shark, Pair Extraordinaire, etc.).
-- [ ] **Live Profile Sync:** Fetch and render the user's live GitHub profile matrix in the GUI for real-time visualization before pushing the spoofed payload.
+
 
 ---
 ###  Setup Instructions
