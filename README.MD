@@ -12,11 +12,6 @@
 - [x] **Gradient Multipliers:** Native support for mapping GitHub's 4-tier color intensity via commit stacking.
 - [x] **Visual Matrix Generator:** A standalone interactive Web GUI to easily paint shapes and instantly compile the required JavaScript coordinate array.
 
-**Planned Future Features:**
-- [ ] **Full E2E GUI Integration:** Execute the entire workflow (repo creation, commit generation, remote push) directly from a local browser interface without touching the CLI.
-- [ ] **Automated Achievements Hub:** A GUI module to systematically trigger and unlock GitHub profile badges (Quick Draw, Pull Shark, Pair Extraordinaire, etc.).
-
-
 ---
 ###  Setup Instructions
 **1. Initialize the Node environment and enable ES6 modules:**
