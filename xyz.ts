@@ -155,10 +155,6 @@ const userObj: User = { name: "Alice", age: 30 };
 console.log(`Object: ${JSON.stringify(userObj)}`);
  // 'userObj' reference is constant, but `userObj.age` is mutable.
 // object operation
-let person1 = { name: "Alice", age: 30 };
-console.log(`Object: ${JSON.stringify(person1)}`);
-console.log(`Keys: ${Object.keys(person1)}`);
-console.log(`Values: ${Object.values(person1)}`);
 
 
 
@@ -172,9 +168,6 @@ console.log(`Array<string>: ${arrStr}`);
 // Array Methods
 let arr1 = [1, 2, 3, 4, 5];
 console.log(`Original: ${arr1}`);
-console.log(`map(x*2): ${arr1.map(x => x * 2)}`);
-console.log(`filter(x>2): ${arr1.filter(x => x > 2)}`);
-console.log(`reduce(sum): ${arr1.reduce((a, b) => a + b)}`);
 
 // Arrays
 arr1.push(6);                        // Add to end -> [1,2,3,4,5,6]
@@ -374,71 +367,7 @@ rl.question('Enter age: ', (answer) => {
     rl.close();
 });
 */
-/* 
-// File operations (fs module)
-const fs = require('fs');
 
-// Read file
-const content = fs.readFileSync('file.txt', 'utf8');
-console.log(content);
-
-// Write file
-fs.writeFileSync('output.txt', 'Hello, World!');
-
-// Append to file
-fs.appendFileSync('output.txt', '\nAnother line');
-
-// Async file operations
-fs.readFile('file.txt', 'utf8', (err, data) => {
-    if (err) {
-        console.error(err);
-        return;
-    }
-    console.log(data);
-});
-
-// Read user input (command line)
-const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-rl.question('Enter your name: ', (name) => {
-    console.log(`Hello, ${name}!`);
-    rl.close();
-});
-
-// With Promises (cleaner)
-const fs = require('fs').promises;
-
-async function readFile() {
-    const content = await fs.readFile('file.txt', 'utf8');
-    console.log(content);
-}
-*/
-
-// === IN BROWSER ===
-/*
-// Output
-console.log("Message to browser console");
-
-// DOM manipulation
-document.getElementById('myDiv').innerText = "Hello";
-document.querySelector('.myClass').innerHTML = "<p>Content</p>";
-
-// User input
-const name = prompt("What's your name?");
-alert(`Hello, ${name}!`);
-
-// Form input
-const input = document.getElementById('userInput');
-const value = input.value;
-
-// Store data
-localStorage.setItem('key', 'value');
-const retrieved = localStorage.getItem('key');
-*/
 // ==========================================
 // 9. FORMATTING
 // ==========================================
@@ -476,10 +405,7 @@ let numToStr2: string = String(parsedInt);
 let numToStr3: string = `${parsedInt}`; // Template literal coercion
 
 // Type assertions (compile-time only)
-/*
-TypeScript Type Assertions (Casting at compile time only, no runtime effect):
-Tells the TS compiler "Trust me, I know this type better than you."
-*/
+// TypeScript Type Assertions (Casting at compile time only, no runtime effect):
 let unknownData: unknown = "Hello TS";
 let lengthOfData: number = (unknownData as string).length;
 let lengthAlt: number = (<string>unknownData).length; // Alternate syntax (clashes with React JSX)
@@ -487,22 +413,18 @@ let lengthAlt: number = (<string>unknownData).length; // Alternate syntax (clash
 // ==========================================
 //11. FUNCTION DEFINITIONS (Definitions & Context)
 // ==========================================
-/*
-1. Function Declaration: Hoisted (can be called before defined in code).
-*/
+
+// 1. Function Declaration: Hoisted (can be called before defined in code).
 function addExample(a: number, b: number): number {
     return a + b;
 }
-
 console.log(`add(5, 10) = ${addExample(5, 10)}`);
 
-/*
-2. Function Expression: Assigned to a variable. Not hoisted.
-*/
+
+// 2. Function Expression: Assigned to a variable. Not hoisted.
 const multiplyExample = function(a: number, b: number): number {
     return a * b;
 };
-
 console.log(`multiply(5, 10) = ${multiplyExample(5, 10)}`);
 
 
@@ -536,8 +458,6 @@ function sumAll(...numbers: number[]): number {
     return numbers.reduce((a, b) => a + b, 0);
 }
 console.log(`sumAll(1,2,3,4,5) = ${sumAll(1, 2, 3, 4, 5)}\n`);
-
-
 
 /*
 Parameters:
